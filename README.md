@@ -31,6 +31,14 @@ npm run preview
 
 Le dossier de production est généré dans `dist/`.
 
+## Déploiement
+
+Le site est publié automatiquement sur GitHub Pages après chaque modification de la branche `main` :
+
+<https://y19892415-beep.github.io/kuronami.info/>
+
+Vite utilise le chemin de base `/kuronami.info/`. Les ressources locales s'appuient sur `import.meta.env.BASE_URL` afin de fonctionner aussi bien en développement que dans le sous-dossier GitHub Pages.
+
 ## Modifier le site
 
 - `src/App.tsx` contient les sections et interactions principales.
