@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { type PointerEvent, useEffect, useRef, useState } from 'react'
 import { ArrowDownRight, ArrowRight, Menu, Pause, Play, Volume2, VolumeX, X } from 'lucide-react'
-import { projects, worlds } from './data'
+import { projects, setupItems, worlds } from './data'
 
 function Brand() {
   return <a className="brand" href="#top" aria-label="Kuronami, retour à l’accueil"><span className="brand-mark">黒</span><span>KURONAMI</span><i>/</i><span>黒波王</span></a>
@@ -13,7 +13,7 @@ function Header({ sound, toggleSound, reduced, toggleReduced }: { sound: boolean
     <Brand />
     <button className="icon-btn menu-btn" onClick={() => setOpen(v => !v)} aria-expanded={open} aria-label="Ouvrir le menu">{open ? <X /> : <Menu />}</button>
     <nav className={open ? 'nav open' : 'nav'} aria-label="Navigation principale">
-      <a href="#about" onClick={close}>À propos</a><a href="#univers" onClick={close}>Univers</a><a href="#projects" onClick={close}>Créations</a><a href="#gallery" onClick={close}>Galerie</a>
+      <a href="#about" onClick={close}>À propos</a><a href="#univers" onClick={close}>Univers</a><a href="#projects" onClick={close}>Créations</a><a href="#setup" onClick={close}>Setup</a><a href="#gallery" onClick={close}>Galerie</a>
       <div className="nav-controls">
         <button className="icon-btn" onClick={toggleReduced} aria-pressed={reduced} title="Réduire les animations">{reduced ? <Play /> : <Pause />}</button>
         <button className="icon-btn" onClick={toggleSound} aria-pressed={sound} title={sound ? 'Couper le son' : 'Activer le son'}>{sound ? <Volume2 /> : <VolumeX />}</button>
@@ -71,9 +71,39 @@ function Worlds() {
 }
 
 function Projects() {
-  return <section className="projects section" id="projects"><div className="projects-heading"><span className="section-label">Créations & projets</span><h2>Des idées.<br />Des vagues.<br /><em>Une signature.</em></h2><p>Explorations visuelles autour de l’océan, du mouvement et de l’inconnu.</p></div>
-    <div className="project-list">{projects.map((p, i) => <article className="project" key={p.title}><div className="project-copy"><span>0{i + 1} / {p.type}</span><h3>{p.title}</h3><p>{p.text}</p><a href="#gallery">Voir le projet <ArrowRight /></a></div><div className="project-image"><img src={p.image} alt={`Création abstraite ${p.title}`} loading="lazy" /><b>0{i + 1}</b></div></article>)}</div>
+  return <section className="projects section" id="projects"><div className="projects-heading"><span className="section-label">Créations & projets</span><h2>Mes projets.<br /><em>Mon univers.</em></h2><p>Des espaces où je transforme le jeu, l’image et le mouvement en créations personnelles.</p></div>
+    <div className="project-list">{projects.map((p, i) => <a className="project project-link" href={p.url} target="_blank" rel="noopener noreferrer" key={p.title} aria-label={`${p.action} — ${p.title}`}><div className="project-copy"><div className="project-kind"><TikTokWaveIcon /><span>0{i + 1} / {p.type}</span></div><h3>{p.title}</h3><p>{p.text}</p><span className="project-action">{p.action} <ArrowRight /></span></div><div className="project-image"><img src={p.image} alt="Bannière TA1WER VAL — TikTok Creator" loading="lazy" /><b>0{i + 1}</b></div></a>)}</div>
   </section>
+}
+
+function TikTokWaveIcon() {
+  return <svg className="tiktok-wave-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8v21.5a8.5 8.5 0 1 1-6.2-8.2" /><path d="M28 9c2.5 6.5 6.6 9.7 12 10" /><path d="M7 35c5-3 9-3 14 0s9 3 14 0" /></svg>
+}
+
+function SetupIcon({ type }: { type: string }) {
+  if (type === 'keyboard') return <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="12" width="38" height="24" rx="3" /><path d="M10 18h4m4 0h4m4 0h4m4 0h4M10 24h4m4 0h4m4 0h4m4 0h4M10 30h6m4 0h16" /></svg>
+  if (type === 'mouse') return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5c-8 0-13 6-13 15v8c0 9 5 15 13 15s13-6 13-15v-8C37 11 32 5 24 5Z" /><path d="M24 5v13m-5 0h10" /></svg>
+  if (type === 'microphone') return <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="16" y="5" width="16" height="27" rx="8" /><path d="M10 24c0 8 6 14 14 14s14-6 14-14M24 38v6m-8 0h16" /></svg>
+  return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 10c0-5 12-5 12 0 0 3-2 5-6 7-4-2-6-4-6-7Z" /><path d="M24 17v8m-9 7c0-7 4-10 9-10s9 3 9 10c0 7-4 11-9 11s-9-4-9-11Z" /><path d="M18 31c2 2 10 2 12 0" /></svg>
+}
+
+function BuddyCharm() {
+  return <div className="buddy-charm" aria-hidden="true"><span className="buddy-string" /><svg viewBox="0 0 100 128"><ellipse className="buddy-base-shadow" cx="50" cy="116" rx="37" ry="7" /><path className="buddy-base" d="M14 83h72v30c0 7-6 11-13 11H27c-7 0-13-4-13-11Z" /><circle className="buddy-light buddy-light-red" cx="32" cy="91" r="4" /><circle className="buddy-light buddy-light-green" cx="45" cy="91" r="4" /><circle className="buddy-light buddy-light-blue" cx="58" cy="91" r="4" /><circle className="buddy-light buddy-light-violet" cx="71" cy="91" r="4" /><path className="buddy-duck-body" d="M30 74c0-13 7-22 20-22s20 9 20 22v17H30Z" /><circle className="buddy-duck-head" cx="50" cy="36" r="24" /><path className="buddy-wing buddy-wing-left" d="M31 62c-11 1-16 8-15 19 7 1 13-1 17-7" /><path className="buddy-wing buddy-wing-right" d="M69 62c11 1 16 8 15 19-7 1-13-1-17-7" /><circle className="buddy-eye" cx="41" cy="34" r="3.5" /><circle className="buddy-eye" cx="59" cy="34" r="3.5" /><path className="buddy-beak" d="M39 43c6-4 16-4 22 0-3 7-19 7-22 0Z" /></svg></div>
+}
+
+function Setup() {
+  const sceneRef = useRef<HTMLDivElement>(null)
+  const moveScene = (event: PointerEvent<HTMLDivElement>) => {
+    const scene = sceneRef.current
+    if (!scene) return
+    const bounds = scene.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5
+    scene.style.setProperty('--scene-x', `${x * 8}deg`)
+    scene.style.setProperty('--scene-y', `${y * -6}deg`)
+  }
+  const resetScene = () => { sceneRef.current?.style.removeProperty('--scene-x'); sceneRef.current?.style.removeProperty('--scene-y') }
+  return <section className="setup section" id="setup"><div className="setup-heading"><span className="section-label">Mon setup</span><h2>L’équipement<br />derrière la vague.</h2><p>Les outils réels qui accompagnent mes sessions et mes créations.</p></div><div className="setup-layout"><div className="setup-scene" ref={sceneRef} onPointerMove={moveScene} onPointerLeave={resetScene}><img src={`${import.meta.env.BASE_URL}assets/setup/kuronami-setup.webp`} alt="Bureau gaming Kuronami avec clavier jaune, souris blanche, microphone TONOR et mascotte originale" loading="lazy" /><span className="keyboard-glow" /><span className="mouse-trail" /><BuddyCharm /></div><div className="setup-grid">{setupItems.map(item => <article className="gear-card" key={item.name}><div className="gear-icon"><SetupIcon type={item.icon} /></div><span>{item.category}</span><h3>{item.name}</h3></article>)}</div></div></section>
 }
 
 function Gallery() {
@@ -86,5 +116,5 @@ function Footer() { return <footer><Brand /><p>King of the Black Wave</p><a href
 export default function App() {
   const [sound, toggleSound] = useAmbientSound(); const [reduced, setReduced] = useState(() => localStorage.getItem('kuronami-reduced-motion') === 'true')
   const toggleReduced = () => setReduced(v => { localStorage.setItem('kuronami-reduced-motion', String(!v)); return !v })
-  return <div className={reduced ? 'app reduced-motion' : 'app'}><Loader /><Header sound={sound} toggleSound={toggleSound} reduced={reduced} toggleReduced={toggleReduced} /><main><Hero /><About /><Worlds /><Projects /><Gallery /></main><Footer /></div>
+  return <div className={reduced ? 'app reduced-motion' : 'app'}><Loader /><Header sound={sound} toggleSound={toggleSound} reduced={reduced} toggleReduced={toggleReduced} /><main><Hero /><About /><Worlds /><Projects /><Setup /><Gallery /></main><Footer /></div>
 }
