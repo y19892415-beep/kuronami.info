@@ -7,7 +7,7 @@ export const worlds = [
 ] as const
 
 export const projects = [
-  { title: 'Marée noire', type: 'Direction artistique', text: 'Une identité visuelle née de la tension entre la puissance de l’océan et le calme de la nuit.', image: '/assets/wave-eclipse.png' },
-  { title: 'Lame d’écume', type: 'Motion design', text: 'Un mouvement suspendu : la vague se fend, la lumière traverse, le silence demeure.', image: '/assets/wave-blade.png' },
-  { title: 'Abysse', type: 'Design visuel', text: 'Textures, profondeur et compositions qui invitent à plonger au-delà de la surface.', image: '/assets/abyss-vortex.png' },
+  { title: 'Marée noire', type: 'Direction artistique', text: 'Une identité visuelle née de la tension entre la puissance de l’océan et le calme de la nuit.', image: `${import.meta.env.BASE_URL}assets/wave-eclipse.png` },
+  { title: 'Lame d’écume', type: 'Motion design', text: 'Un mouvement suspendu : la vague se fend, la lumière traverse, le silence demeure.', image: `${import.meta.env.BASE_URL}assets/wave-blade.png` },
+  { title: 'Abysse', type: 'Design visuel', text: 'Textures, profondeur et compositions qui invitent à plonger au-delà de la surface.', image: `${import.meta.env.BASE_URL}assets/abyss-vortex.png` },
 ] as const

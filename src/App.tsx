@@ -44,7 +44,7 @@ function Loader() {
 
 function Hero() {
   return <section className="hero" id="top">
-    <img className="hero-art" src="/assets/wave-eclipse.png" alt="Vague noire abstraite sous une éclipse turquoise" />
+    <img className="hero-art" src={`${import.meta.env.BASE_URL}assets/wave-eclipse.png`} alt="Vague noire abstraite sous une éclipse turquoise" />
     <div className="hero-shade" />
     <div className="particles" aria-hidden="true" />
     <div className="hero-content reveal">
@@ -77,7 +77,7 @@ function Projects() {
 }
 
 function Gallery() {
-  const images = ['/assets/mountain-night.png', '/assets/wave-eclipse.png', '/assets/abyss-vortex.png', '/assets/wave-blade.png']
+  const images = ['mountain-night.png', 'wave-eclipse.png', 'abyss-vortex.png', 'wave-blade.png'].map(file => `${import.meta.env.BASE_URL}assets/${file}`)
   return <section className="gallery section" id="gallery"><div><span className="section-label">Galerie</span><h2>Instants volés</h2><p>Fragments d’océan, de nuit et de lumière.</p></div><div className="gallery-track">{images.map((src, i) => <figure key={src}><img src={src} alt={`Fragment abstrait ${i + 1}`} loading="lazy" /><figcaption>Fragment — 0{i + 1}</figcaption></figure>)}</div></section>
 }
 
