@@ -7,7 +7,19 @@ export const worlds = [
 ] as const
 
 export const projects = [
-  { title: 'Marée noire', type: 'Direction artistique', text: 'Une identité visuelle née de la tension entre la puissance de l’océan et le calme de la nuit.', image: `${import.meta.env.BASE_URL}assets/wave-eclipse.png` },
-  { title: 'Lame d’écume', type: 'Motion design', text: 'Un mouvement suspendu : la vague se fend, la lumière traverse, le silence demeure.', image: `${import.meta.env.BASE_URL}assets/wave-blade.png` },
-  { title: 'Abysse', type: 'Design visuel', text: 'Textures, profondeur et compositions qui invitent à plonger au-delà de la surface.', image: `${import.meta.env.BASE_URL}assets/abyss-vortex.png` },
+  {
+    title: 'Ta1wer VAL',
+    type: 'Création de contenu TikTok',
+    text: 'Mon espace de création autour de Valorant, entre moments de jeu, précision et énergie Kuronami.',
+    image: `${import.meta.env.BASE_URL}assets/projects/ta1wer-val-banner.webp`,
+    url: 'https://www.tiktok.com/@ta1wer_val',
+    action: 'Voir mon TikTok',
+  },
+] as const
+
+export const setupItems = [
+  { name: 'Ducky One 3 Pro Yellow Mini', category: 'Clavier', icon: 'keyboard' },
+  { name: 'SteelSeries Rival 3 Gen 3 White', category: 'Souris', icon: 'mouse' },
+  { name: 'TONOR', category: 'Microphone', icon: 'microphone' },
+  { name: 'Porte-clés Ducky blanc', category: 'Accessoire', icon: 'charm' },
 ] as const
