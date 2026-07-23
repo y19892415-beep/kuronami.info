@@ -62,6 +62,8 @@ function About() {
 function Worlds() {
   const [active, setActive] = useState(0); const world = worlds[active]
   return <section className="worlds section" id="univers">
+    <img className="world-backdrop" key={world.image} src={world.image} alt="" style={{ objectPosition: world.position }} aria-hidden="true" />
+    <div className="world-shade" aria-hidden="true" />
     <div className="world-intro"><span className="section-label">Univers sélectionné</span><p className="world-index">{world.index} / 05</p><h2 style={{ color: world.color }}>{world.name}</h2><p className="world-meta">{world.meta}</p><p className="world-copy">{world.text}</p></div>
     <div className="world-orbit" aria-hidden="true"><span style={{ background: world.color }} /></div>
     <div className="world-list" role="tablist" aria-label="Mes univers">
